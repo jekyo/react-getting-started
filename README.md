@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# Tutorial: Deploying a basic React app on Jekyo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Demo app [here](https://react-demo.jekyo.app/)
 
-## Available Scripts
+### Prerequisites
 
-In the project directory, you can run:
+Make sure you have [NodeJS](https://nodejs.org/en/download/), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [git](https://github.com/git-guides/install-git) installed.
 
-### `yarn start`
+If it's your first time using **Jekyo**, you can **install** it by running the following command in your terminal:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm install -g jekyo`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Sign in to Jekyo
 
-### `yarn test`
+You can sign in to Jekyo by running `jekyo user:signin`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+➜  ~ jekyo user:signin 
+Your email?: **************
+Your password?: **********
+You have successfully signed in!
+```
+If you don't have a Jekyo account, you can create one in the terminal by running `jekyo user:signup`. 
 
-### `yarn build`
+## 1. Create a basic React app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You can start your React project by using `jekyo create`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Using the **arrows** on your keyboard, select **react** and press **enter**.  
+```
+? Select template
+  None Creates only the application
+  expressjs A basic app skeleton using [Express](https://expressjs.com/)     
+  nuxt-js A boilerplate SSR application using [Nuxt.js](https://nuxtjs.org/) 
+❯ react A basic starter app using [React](https://reactjs.org/)
+```
+When prompted, enter the desired name for your React app. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`Application name?: react-tutorial`
 
-### `yarn eject`
+This will create a basic React app in the current directory by cloning this [React starter app](https://github.com/jekyo/react-getting-started) repository.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+Cloning source code... OK
+Application created!
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Deploy the React app on Jekyo
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To deploy the app, first navigate to the newly created directory:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`cd react-tutorial`
 
-## Learn More
+Now you can deploy this app to Jekyo by running: 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`jekyo deploy`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+After a while, you should see something like this:
 
-### Code Splitting
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://react-tutorial.jekyo.app ... OK
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+You can now browse to your React app on https://react-tutorial.jekyo.app (replace 'react-tutorial' with your app name)
 
-### Analyzing the Bundle Size
+## 2. Deploying an existing React app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Navigate to your local React app directory
 
-### Making a Progressive Web App
+`cd my-react-app`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Initialize a git repository if you haven't already done so by running `git init`. 
 
-### Advanced Configuration
+### Edit package.json
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Your package.json needs to specify the necessary port and host variables for Jekyo, like this:
 
-### Deployment
+```
+"scripts": {
+    "start": "HOST=$HOST PORT=$PORT react-scripts start",
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Create an empty Jekyo app:
 
-### `yarn build` fails to minify
+`jekyo create` 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Select 'none' using the **arrows** on your keyboard and press **enter**. This will create an app using your current directory. 
+
+```
+? Select template (Use arrow keys)
+❯ None Creates an application from your current directory
+```
+
+Name your app: 
+
+`Application name?: my-react-app`
+
+Run `jekyo link` to link your local app to the remote Jekyo app. Select 'my-react-app' using the **arrows** on your keyboard and press **enter**.
+
+```
+? Select application (Use arrow keys)
+❯ my-react-app
+```
+### Now you can deploy this app to Jekyo by running: 
+
+`jekyo deploy`
+
+After a while, you should see something like this:
+
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://my-react-app.jekyo.app ... OK
+```
+
+You can now browse to your React app on https://my-react-app.jekyo.app (replace 'my-react-app' with your app name)
+
+## Pushing local changes to Jekyo 
+
+Add the newly modified file(s) to the git index by using [git add](https://www.atlassian.com/git/tutorials/saving-changes)
+
+`git add filename`
+
+Create a [git commit](https://github.com/git-guides/git-commit)
+
+`git commit -m "your commit message"`
+
+Now, simply deploy your app again:
+
+`jekyo deploy`
+
+You will see your changes on your live app after a short while. 
